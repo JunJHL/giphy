@@ -16,12 +16,24 @@ $("#search-button").click(function(){
       success: function(response) {
         $(".row justify-content-center").text("");          
         $(".container").text("");
-        
-          response.data.forEach(function(repeat){
-               $(".container").append(`<img src= ${repeat.images.fixed_width.url} >`);
-          })
+          response.data.forEach(function(repeat,i){
+               $(".container").append(`
+               <div id="button${i}" data-toggle="modal" data-target="#myModal${i}">
+               <img src= ${repeat.images.fixed_width.url} >
+               </div>
+               `);
+            
+              $("#modalHolder").append(`<div id="myModal${i}" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+            
+            <div class="modal-content">
+                <img id="img${i}" src='${repeat.images.fixed_width.url}'>
+             </div>
+            </div>`);
+    
+          });
       }
-  })
+  });
   
 });
 
